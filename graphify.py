@@ -15,6 +15,7 @@ def graphify(holes, test_data):
 
         plt.plot(x, y, linestyle="-", label=holes[i][0])
     
+    plt.gca().invert_yaxis()
     plt.legend()
     plt.show()
 

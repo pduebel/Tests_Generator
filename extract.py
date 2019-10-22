@@ -31,20 +31,42 @@ def extract(db_file, test, proj):
         holes = cursor.fetchall()
         final_holes = [list(i) for i in holes]
 
-        for i in range(len(final_holes)):
-            data_select = "select TPIT_TEST_DEPTH, TPIT_AVERAGE_DFLT from TRIALPIT where TPIT_TEST_TYPE='%s' and HOLE_ID='%s' and PROJ_ID='%s'"%(test, final_holes[i][0], proj)
-            cursor.execute(data_select)
-            data = cursor.fetchall()
-            test_data = [list(i) for i in data]
-            final_test_data.append(test_data)
+        if test == "HP":
 
+            for i in range(len(final_holes)):
+                data_select = """select TPIT_TEST_DEPTH, TPIT_AVERAGE_DFLT from TRIALPIT 
+                                where (TPIT_TEST_TYPE='HP' or TPIT_TEST_TYPE='P' or TPIT_TEST_TYPE='HP>'
+                                or TPIT_TEST_TYPE='HP<' or TPIT_TEST_TYPE='HP >' or TPIT_TEST_TYPE='HP <'
+                                or TPIT_TEST_TYPE='H' or TPIT_TEST_TYPE='H>' or TPIT_TEST_TYPE='H >'
+                                or TPIT_TEST_TYPE='H<' or TPIT_TEST_TYPE='H <' or TPIT_TEST_TYPE='P>'
+                                or TPIT_TEST_TYPE='P >' or TPIT_TEST_TYPE='P<' or TPIT_TEST_TYPE='P <')
+                                and HOLE_ID='%s' and PROJ_ID='%s'"""%(final_holes[i][0], proj)
+                cursor.execute(data_select)
+                data = cursor.fetchall()
+                test_data = [list(i) for i in data]
+                final_test_data.append(test_data)
+
+        if test == "SV":
+
+             for i in range(len(final_holes)):
+                data_select = """select TPIT_TEST_DEPTH, TPIT_AVERAGE_DFLT from TRIALPIT 
+                                where (TPIT_TEST_TYPE='SV' or TPIT_TEST_TYPE='V' or TPIT_TEST_TYPE='SV>'
+                                or TPIT_TEST_TYPE='SV<' or TPIT_TEST_TYPE='SV >' or TPIT_TEST_TYPE='SV <'
+                                or TPIT_TEST_TYPE='S' or TPIT_TEST_TYPE='S>' or TPIT_TEST_TYPE='S >'
+                                or TPIT_TEST_TYPE='S<' or TPIT_TEST_TYPE='S <' or TPIT_TEST_TYPE='V>'
+                                or TPIT_TEST_TYPE='V >' or TPIT_TEST_TYPE='V<' or TPIT_TEST_TYPE='V <')
+                                and HOLE_ID='%s' and PROJ_ID='%s'"""%(final_holes[i][0], proj)
+                cursor.execute(data_select)
+                data = cursor.fetchall()
+                test_data = [list(i) for i in data]
+                final_test_data.append(test_data)
 
     cursor.commit()
 
     return final_holes, final_test_data
 
 db = "GEODASY.mdb"
-SPT = extract(db, "HP", "LS4170")
+SPT = extract(db, "SV", "LS4170")
 print(SPT)
 
 
