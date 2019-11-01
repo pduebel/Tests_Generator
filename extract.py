@@ -65,9 +65,6 @@ def extract(db_file, test, proj):
 
     return final_holes, final_test_data
 
-db = "GEODASY.mdb"
-SPT = extract(db, "SV", "LS4170")
-print(SPT)
 
 
 
