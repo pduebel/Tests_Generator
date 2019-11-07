@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from extract import extract
 from graphify import graphify
 
-test = "HP"
+test = "SPT"
 proj = "LS4170"
 db = "//Desktop-4d2r7ke/GEODASYV6/GEODASY.mdb"
 holes, test_data = extract(db, test, proj)
