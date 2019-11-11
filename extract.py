@@ -8,9 +8,8 @@ def extract(db_file, test, proj):
     conn = pyodbc.connect(odbc_conn_str)
     cursor = conn.cursor()
 
-  
-
-    if test == 'SPT':
+    
+    if test == "SPT":
 
         hole_select = "select distinct HOLE_ID from SPT where PROJ_ID='%s'"%(proj)
         cursor.execute(hole_select)
@@ -23,6 +22,21 @@ def extract(db_file, test, proj):
             data = cursor.fetchall()
             test_data = [list(i) for i in data]
             final_test_data.append(test_data)
+
+    
+    if test == "SHDP" or test == "DP":
+        hole_select = "select distinct HOLE_ID from DPROBE where PROJ_ID='%s'"%(proj)
+        cursor.execute(hole_select)
+        holes = cursor.fetchall()
+        final_holes = [list(i) for i in holes]
+
+        for i in range(len(final_holes)):
+            data_select = "select DPSTART, BLOWS from DPROBE where HOLE_ID='%s' and PROJ_ID='%s'"%(final_holes[i][0], proj)
+            cursor.execute(data_select)
+            data = cursor.fetchall()
+            test_data = [list(i) for i in data]
+            final_test_data.append(test_data)
+
 
     if test == "SV" or test == "HP":
 

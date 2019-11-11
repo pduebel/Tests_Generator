@@ -1,11 +1,15 @@
 def graphify(test, holes, test_data):
 
     import matplotlib.pyplot as plt
+    from matplotlib.ticker import MaxNLocator
     
     strength = [20, 40, 75, 150]
 
     if test == "SPT":
         plt.xlabel("SPT N-value")
+
+    if test == "SHDP" or "DP":
+        plt.xlabel("SHDP blows")
 
     if test == "SV" or test == "HP":
         [plt.axvline(x, linewidth=1, color='silver', linestyle=(0, (5, 5))) for x in strength]
@@ -38,6 +42,7 @@ def graphify(test, holes, test_data):
     
     plt.ylabel("Depth $(m)$")
     plt.gca().invert_yaxis()
+    plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
     plt.legend()
     plt.show()
 
