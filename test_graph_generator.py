@@ -4,7 +4,7 @@ from graphify import graphify
 
 test = "SHDP"
 proj = "LS4010"
-db = "//Desktop-4d2r7ke/GEODASYV6/GEODASY.mdb"
+db = "GEODASY.mdb"
 holes, test_data = extract(db, test, proj)
 graphify(test, holes, test_data)
 
