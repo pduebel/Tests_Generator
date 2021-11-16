@@ -8,7 +8,7 @@ def graphify(test, holes, test_data):
     if test == "SPT":
         plt.xlabel("SPT N-value")
 
-    if test == "SHDP" or "DP":
+    if test == "SHDP" or test == "DP":
         plt.xlabel("SHDP blows")
 
     if test == "SV" or test == "HP":
